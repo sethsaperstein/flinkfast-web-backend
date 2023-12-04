@@ -1,0 +1,11 @@
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/config/security/AuthenticationErrorHandler.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/config/security/ResponseHeadersFilter.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/models/Message.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/config/ApplicationConfig.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/config/GlobalErrorHandler.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/config/security/SecurityConfig.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/config/ApplicationProperties.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/HelloWorldApplication.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/models/ErrorMessage.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/controllers/MessageController.java
+/Users/sethsaps/src/api_spring_java_hello-world/src/main/java/com/example/helloworld/services/MessageService.java
