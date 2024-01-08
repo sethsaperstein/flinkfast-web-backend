@@ -19,17 +19,18 @@ public class MessageController {
 
     @GetMapping("/public")
     public Message getPublic() {
-        return messageService.getPublicMessage();
+        return new Message();
+//        return messageService.getPublicMessage();
     }
 
     @GetMapping("/protected")
     public Message getProtected() {
-        return messageService.getProtectedMessage();
+        return new Message();
     }
 
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('read:admin-messages')")
     public Message getAdmin() {
-        return messageService.getAdminMessage();
+        return new Message();
     }
 }

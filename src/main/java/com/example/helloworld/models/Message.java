@@ -1,13 +1,18 @@
 package com.example.helloworld.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Message {
-
     private String text;
+    private String to;
 
-    public static Message from(final String text) {
-        return new Message(text);
+    static public Message from(String text, String to) {
+        return new Message(text, to);
     }
 }

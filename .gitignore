@@ -38,3 +38,7 @@ out/
 
 ### 12 Factor ###
 .env
+
+### other ###
+target
+src/main/resources/keystore

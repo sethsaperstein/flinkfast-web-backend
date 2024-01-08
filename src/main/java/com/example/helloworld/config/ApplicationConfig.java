@@ -18,8 +18,12 @@ public class ApplicationConfig implements WebMvcConfigurer {
     public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins(applicationProps.getClientOriginUrl())
-                .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
-                .allowedMethods(HttpMethod.GET.name())
+                .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, "SockJS")
+                .allowedMethods(
+                    HttpMethod.GET.name(),
+                    HttpMethod.POST.name(),
+                    HttpMethod.DELETE.name(),
+                    HttpMethod.OPTIONS.name())
                 .maxAge(86400);
     }
 }
