@@ -1,5 +1,6 @@
 package com.example.helloworld.services;
 
+import com.example.helloworld.Settings;
 import com.example.helloworld.models.Session;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -28,7 +29,8 @@ public class FlinkService {
     private static final Logger log = LoggerFactory.getLogger(FlinkService.class);
 
     public Session createFlinkSessionCluster(String id) {
-        String flinkDeploymentYaml = templateFlinkDeployment(id);
+        boolean isLocal = Settings.getEnvironment().equals(Settings.LOCAL_ENV);
+        String flinkDeploymentYaml = templateFlinkDeployment(id, isLocal);
         InputStream flinkDeploymentBytes = new ByteArrayInputStream(flinkDeploymentYaml.getBytes());
 
         String sqlGatewayServiceYaml = templateSqlGatewayService(id);
@@ -61,9 +63,10 @@ public class FlinkService {
         return processTemplate("flink-sql-gateway-svc-template.yaml.ftl", templateData);
     }
 
-    String templateFlinkDeployment(String appName) {
+    String templateFlinkDeployment(String appName, boolean isLocal) {
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("appName", appName);
+        templateData.put("isLocalEnvironment", isLocal);
 
         return processTemplate("flink-deployment-template.yaml.ftl", templateData);
     }

@@ -24,7 +24,7 @@ public class TestFlinkService {
 
     @Test
     public void testTemplateFlinkDeployment() {
-        String templatedFlinkDeployment = flinkService.templateFlinkDeployment("foo");
+        String templatedFlinkDeployment = flinkService.templateFlinkDeployment("foo", false);
         String expectedTemplatedFlinkDeployment = readExpectedTemplateFile("flink-deployment-templated.yaml");
 
         assertEquals(expectedTemplatedFlinkDeployment, templatedFlinkDeployment);

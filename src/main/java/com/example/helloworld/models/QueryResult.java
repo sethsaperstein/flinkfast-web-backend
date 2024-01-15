@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QueryResult {
+    private final String type = "query_results";
     private List<String> colNames;
     private List<QueryResultRow> rows;
 

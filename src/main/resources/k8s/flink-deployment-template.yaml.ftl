@@ -16,3 +16,16 @@ spec:
     resource:
       memory: "2048m"
       cpu: 1
+<#if isLocalEnvironment>
+  podTemplate:
+    spec:
+      volumes:
+        - name: minimounted
+          hostPath:
+            path: /tmp/flink
+      containers:
+        - name: flink-main-container
+          volumeMounts:
+            - mountPath: /opt/flink/tmp
+              name: minimounted
+</#if>
