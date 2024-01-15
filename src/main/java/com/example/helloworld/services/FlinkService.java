@@ -1,6 +1,7 @@
 package com.example.helloworld.services;
 
 import com.example.helloworld.Settings;
+import com.example.helloworld.models.Jobs;
 import com.example.helloworld.models.Session;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -104,5 +106,18 @@ public class FlinkService {
             }
             return Optional.of(Session.from(id, "PENDING"));
         }
+    }
+
+    public Jobs getJobs() {
+        return Jobs.from(List.of(
+            Jobs.Job.from("test1", 1, "2023-12-08T05:26:25+0000", "Running", "Running"),
+            Jobs.Job.from("test2", 2, "2023-12-08T05:24:25+0000", "Stopped", "Stopped")));
+    }
+
+    public void deleteJob(String jobName, Integer version) {
+    }
+
+    public Jobs.Job createJob(String user, String sql) {
+        return Jobs.Job.from("test1", 1, "2023-12-08T05:26:25+0000", "Pending", "Running");
     }
 }

@@ -1,32 +1,31 @@
 package com.example.helloworld.controllers;
 
-import com.example.helloworld.models.BillingSummary;
 import com.example.helloworld.models.Jobs;
-import com.example.helloworld.models.Message;
-import com.example.helloworld.services.BillingService;
-import com.example.helloworld.services.JobsService;
-import com.example.helloworld.services.MessageService;
+import com.example.helloworld.services.FlinkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/jobs")
 public class JobsController {
 
-    private final JobsService jobsService;
+    private final FlinkService flinkService;
 
     @GetMapping()
     public Jobs getJobs() {
-        return jobsService.getJobs();
+        return flinkService.getJobs();
     }
 
     @DeleteMapping
     void deleteJob(String jobName, Integer version) {
 
+    }
+
+    @PostMapping
+    public Jobs.Job createJob(Principal user, String sql) {
+        return flinkService.createJob(user.getName(), sql);
     }
 }

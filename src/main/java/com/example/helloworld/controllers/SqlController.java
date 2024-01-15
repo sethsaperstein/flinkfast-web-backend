@@ -1,5 +1,6 @@
 package com.example.helloworld.controllers;
 
+import com.example.helloworld.models.DeployedJob;
 import com.example.helloworld.models.Session;
 import com.example.helloworld.services.FlinkService;
 import lombok.RequiredArgsConstructor;
