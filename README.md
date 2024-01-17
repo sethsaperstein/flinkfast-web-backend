@@ -1,4 +1,23 @@
-# Spring/Java: API Basic Role-Based Access Control (RBAC) Code Sample
+# FlinkFast Web Backend
+
+## Getting Started
+
+### Local Hacks
+1. The volume mount references a location on minikube that the flink
+user needs access to. As such, `mininkube ssh` and create a directory
+`/tmp/flink` and set permissions so any user can read/write
+2. Hit blockers setting up minikube nginx ingress so for now 
+use `minikube service` for the rest api and 
+the sql gateway.
+3. The sql file needs to be stored somewhere. For local,
+we would not like to rely on external systems (s3)
+so mounting the sql file on the pod will be used during
+job creation
+4. The docker image used for sql gateway has been modified so
+that the sql gateway starts as a background process. Currently
+labeled `flink_test_5` in the template
+
+## Spring/Java: API Basic Role-Based Access Control (RBAC) Code Sample
 
 This Java code sample demonstrates **how to implement Role-Based Access Control (RBAC)** in Spring API servers using Auth0.
 

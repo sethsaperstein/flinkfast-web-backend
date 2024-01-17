@@ -1,8 +1,12 @@
 package com.example.helloworld.controllers;
 
+import com.example.helloworld.models.CreateJobRequestBody;
+import com.example.helloworld.models.DeleteJobRequestBody;
 import com.example.helloworld.models.Jobs;
 import com.example.helloworld.services.FlinkService;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -19,13 +23,13 @@ public class JobsController {
         return flinkService.getJobs();
     }
 
-    @DeleteMapping
-    void deleteJob(String jobName, Integer version) {
-
+    @DeleteMapping()
+    void deleteJob(Principal user, @RequestBody DeleteJobRequestBody request) {
+        flinkService.deleteJob(request.getName(), request.getVersion());
     }
 
-    @PostMapping
-    public Jobs.Job createJob(Principal user, String sql) {
-        return flinkService.createJob(user.getName(), sql);
+    @PostMapping()
+    public Jobs.Job createJob(Principal user, @RequestBody CreateJobRequestBody request) {
+        return flinkService.createFlinkJobCluster(user.getName(), request.getSql());
     }
 }
