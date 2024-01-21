@@ -1,8 +1,8 @@
 ---
-#logging:
-#  level:
-#    root: DEBUG
-#    org.springframework: DEBUG
+logging:
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
 #    org.springframework.web.socket: TRACE
 
 application:
@@ -31,4 +31,8 @@ okta:
   oauth2:
     issuer: ${OKTA_OAUTH2_ISSUER}
     audience: ${OKTA_OAUTH2_AUDIENCE}
+  other:
+    client-id: ${OKTA_OAUTH2_CLIENT_ID}
+    client-secret: ${OKTA_OAUTH2_CLIENT_SECRET}
+    domain: ${OKTA_OAUTH2_DOMAIN}
 ...

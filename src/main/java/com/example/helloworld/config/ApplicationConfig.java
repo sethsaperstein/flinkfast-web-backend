@@ -23,7 +23,8 @@ public class ApplicationConfig implements WebMvcConfigurer {
                     HttpMethod.GET.name(),
                     HttpMethod.POST.name(),
                     HttpMethod.DELETE.name(),
-                    HttpMethod.OPTIONS.name())
+                    HttpMethod.OPTIONS.name(),
+                    HttpMethod.PUT.name())
                 .maxAge(86400);
     }
 }

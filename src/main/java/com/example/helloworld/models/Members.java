@@ -1,5 +1,8 @@
 package com.example.helloworld.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.util.List;
@@ -8,13 +11,16 @@ import java.util.List;
 @Value
 public class Members {
 
-    @Value
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Member {
+        private String id;
         private String email;
         private String name;
 
-        public static Member from(final String email, final String name) {
-            return new Member(email, name);
+        public static Member from(final String id, final String email, final String name) {
+            return new Member(id, email, name);
         }
     }
 
