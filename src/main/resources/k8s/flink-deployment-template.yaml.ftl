@@ -3,7 +3,7 @@ kind: FlinkDeployment
 metadata:
   name: ${appName}
 spec:
-  image: flink_test_5
+  image: 189266647936.dkr.ecr.us-east-1.amazonaws.com/flinkfast-sql-gateway-app:latest
   flinkVersion: v1_18
   flinkConfiguration:
     taskmanager.numberOfTaskSlots: "2"

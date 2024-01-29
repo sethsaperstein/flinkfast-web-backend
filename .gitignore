@@ -42,3 +42,4 @@ out/
 ### other ###
 target
 src/main/resources/keystore
+.DS_Store

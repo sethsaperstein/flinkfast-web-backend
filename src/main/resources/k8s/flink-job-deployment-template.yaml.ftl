@@ -5,7 +5,7 @@ metadata:
   labels:
     type: job
 spec:
-  image: flink-sql-runner:latest
+  image: 189266647936.dkr.ecr.us-east-1.amazonaws.com/flinkfast-sql-app:latest
   flinkVersion: v1_18
   flinkConfiguration:
     taskmanager.numberOfTaskSlots: "1"

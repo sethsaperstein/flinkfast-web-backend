@@ -1,0 +1,135 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flinkfast-web-backend
+spec:
+  selector:
+    matchLabels:
+      app: flinkfast-web-backend
+  template:
+    metadata:
+      labels:
+        app: flinkfast-web-backend
+    spec:
+      serviceAccountName: flinkfast-web-backend
+      containers:
+        - name: flinkfast-web-backend
+          image: 189266647936.dkr.ecr.us-east-1.amazonaws.com/flinkfast-web-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            - name: ENV
+              value: "production"
+            - name: CLIENT_ORIGIN_URL
+              value: "https://seth-saperstein.com"
+            - name: OKTA_OAUTH2_ISSUER
+              value: "https://dev-gmj51vsa83oci613.us.auth0.com/"
+            - name: OKTA_OAUTH2_AUDIENCE
+              value: "https://hello-world.example.com"
+            - name: OKTA_OAUTH2_CLIENT_ID
+              value: "aezMXCQF83WT1RlzljsHex786t8Ofc7x"
+            - name: OKTA_OAUTH2_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: okta-oauth2-flinkfast-app
+                  key: OKTA_OAUTH2_CLIENT_SECRET
+            - name: OKTA_OAUTH2_DOMAIN
+              value: "dev-gmj51vsa83oci613.us.auth0.com"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flinkfast-web-backend
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flinkfast-web-backend
+rules:
+  - apiGroups: ["flink.apache.org"]
+    resources: ["flinkdeployments", "flinksessionjobs"]
+    verbs: ["*"]
+  - apiGroups: [ "" ]
+    resources: [ "services", "configmaps" ]
+    verbs: [ "*" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: flinkfast-web-backend
+subjects:
+  - kind: ServiceAccount
+    name: flinkfast-web-backend
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: flinkfast-web-backend
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: flinkfast-web-backend
+spec:
+  selector:
+    app: flinkfast-web-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# HorizontalPodAutoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: flinkfast-web-backend-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: flinkfast-web-backend
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+---
+# Ingress with AWS ALB annotations
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flinkfast-web-backend-ingress
+  annotations:
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:189266647936:certificate/e68fe1df-7c42-4669-a44b-23fc731793a1"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flinkfast-web-backend
+                port:
+                  number: 8080
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: okta-oauth2-flinkfast-app
+type: Opaque
+data:
+  OKTA_OAUTH2_CLIENT_SECRET: cC03SVBBYmhSS004QnFlaXJJajVEWnZSWGg4V2lQbUVrZmZ4dUJfd2pZTHF5cC13Ym5ESkQ0ZldEQ1UtakE2bQ==

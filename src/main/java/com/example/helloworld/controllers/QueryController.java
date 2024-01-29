@@ -34,7 +34,8 @@ public class QueryController {
         @Header("simpSessionId") String sessionId) throws Exception {
         log.info("Initializing query {} from user {}", msg.getText(), user.getName());
 
-        try (Connection connection = DriverManager.getConnection("jdbc:flink://localhost:60824")) {
+        String jdbc = String.format("jdbc:flink://%s-sql-gateway:8083", user.getName().replace("|", ""));
+        try (Connection connection = DriverManager.getConnection(jdbc)) {
             try (Statement statement = connection.createStatement()) {
                 String[] userStatements = msg.getText().strip().split(";");
                 for (String userStatement: userStatements) {

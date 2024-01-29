@@ -1,8 +1,14 @@
 package com.example.helloworld.services;
 
+import com.example.helloworld.HelloWorldApplication;
+import com.example.helloworld.clients.Auth0ApiClient;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -10,9 +16,13 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class TestFlinkService {
+@ActiveProfiles("test")
+public class FlinkServiceTest {
     @Autowired
     private FlinkService flinkService;
+
+    @MockBean
+    private Auth0ApiClient auth0ApiClient;
 
     @Test
     public void testTemplateSqlGatewayService() {

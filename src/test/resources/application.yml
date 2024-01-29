@@ -6,7 +6,7 @@
 #    org.springframework.web.socket: TRACE
 
 application:
-  client-origin-url: ${CLIENT_ORIGIN_URL}
+  client-origin-url: http://foo:4040
 
 server:
 #  ssl:
@@ -18,7 +18,7 @@ server:
   error:
     whitelabel:
       enabled: false
-  port: ${PORT}
+  port: 6060
 
 spring:
   mvc:
@@ -29,10 +29,10 @@ spring:
 
 okta:
   oauth2:
-    issuer: ${OKTA_OAUTH2_ISSUER}
-    audience: ${OKTA_OAUTH2_AUDIENCE}
+    issuer: https://foo.com/
+    audience: https://foo.com
   other:
-    client-id: ${OKTA_OAUTH2_CLIENT_ID}
-    client-secret: ${OKTA_OAUTH2_CLIENT_SECRET}
-    domain: ${OKTA_OAUTH2_DOMAIN}
+    client-id: foo
+    client-secret: foo
+    domain: foo.com
 ...
