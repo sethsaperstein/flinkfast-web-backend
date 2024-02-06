@@ -132,4 +132,4 @@ metadata:
   name: okta-oauth2-flinkfast-app
 type: Opaque
 data:
-  OKTA_OAUTH2_CLIENT_SECRET: cC03SVBBYmhSS004QnFlaXJJajVEWnZSWGg4V2lQbUVrZmZ4dUJfd2pZTHF5cC13Ym5ESkQ0ZldEQ1UtakE2bQ==
+  OKTA_OAUTH2_CLIENT_SECRET: INSERT_HERE
